@@ -24,11 +24,26 @@
 					}
 				],
 				"editor.formatOnSave": true,
-				"terminal.integrated.defaultProfile.linux": "bash"
+				"editor.defaultFormatter": "esbenp.prettier-vscode",
+				 "editor.codeActionsOnSave": {
+          			"source.fixAll.eslint": "explicit"
+				},
+				"terminal.integrated.defaultProfile.linux": "zsh",
+				"terminal.integrated.profiles.linux": {
+					"bash": {
+						"path": "bash",
+						"icon": "terminal-bash"
+					},
+					"zsh": {
+						"path": "zsh"
+					}
+				}
 			},
 			// Add the IDs of extensions you want installed when the container is created.
 			"extensions": [
-				"ms-mssql.mssql",
+			    "dbaeumer.vscode-eslint",
+	            "esbenp.prettier-vscode",
+			    "ms-mssql.mssql",
 				"eamodio.gitlens"
 			]
 		}
@@ -51,7 +66,7 @@
 		"CLAUDE_CONFIG_DIR": "/home/vscode/.claude"
 	},
 	// postCreateCommand.sh parameters: $1=SA password, $2=dacpac path, $3=sql script(s) path
-	"postCreateCommand": "bash .devcontainer/mssql/postCreateCommand.sh 'P@ssw0rd' '' './.devcontainer/mssql/'",
+	"postCreateCommand": "bash .devcontainer/mssql/postCreateCommand.sh 'P@ssw0rd' '' './.devcontainer/mssql/' && sudo mkdir -p /commandhistory && sudo touch /commandhistory/.bash_history && sudo chown -R vscode /commandhistory && echo 'export PROMPT_COMMAND=\"history -a\" && export HISTFILE=/commandhistory/.bash_history' >> ~/.bashrc",
 	"features": {
 		"ghcr.io/devcontainers/features/common-utils:2": {},
 		"ghcr.io/devcontainers/features/github-cli:1": {},
