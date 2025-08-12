@@ -5,7 +5,6 @@
 	"dockerComposeFile": "docker-compose.yml",
 	"service": "app",
 	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
-
 	// Configure tool-specific properties.
 	"customizations": {
 		// Configure properties specific to VS Code.
@@ -27,7 +26,6 @@
 				"editor.formatOnSave": true,
 				"terminal.integrated.defaultProfile.linux": "bash"
 			},
-
 			// Add the IDs of extensions you want installed when the container is created.
 			"extensions": [
 				"ms-mssql.mssql",
@@ -35,7 +33,6 @@
 			]
 		}
 	},
-
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [5000, 5001],
 	// "portsAttributes": {
@@ -43,19 +40,16 @@
 	//			"protocol": "https"
 	//		}
 	// }
-
 	// Mounts for Claude Code configuration
 	"mounts": [
 		"source=claude-code-bashhistory-${devcontainerId},target=/commandhistory,type=volume",
 		"source=claude-code-config-${devcontainerId},target=/home/vscode/.claude,type=volume"
 	],
-
 	// Container environment variables for Claude Code
 	"containerEnv": {
 		"NODE_OPTIONS": "--max-old-space-size=4096",
 		"CLAUDE_CONFIG_DIR": "/home/vscode/.claude"
 	},
-
 	// postCreateCommand.sh parameters: $1=SA password, $2=dacpac path, $3=sql script(s) path
 	"postCreateCommand": "bash .devcontainer/mssql/postCreateCommand.sh 'P@ssw0rd' '' './.devcontainer/mssql/'",
 	"features": {
@@ -63,7 +57,6 @@
 		"ghcr.io/devcontainers/features/github-cli:1": {},
 		"ghcr.io/devcontainers/features/node:1": {}
 	},
-
 	// Use vscode user (non-root)
 	"remoteUser": "vscode"
 }
