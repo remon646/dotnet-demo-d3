@@ -1,77 +1,78 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/dotnet-mssql
 {
-	"name": "Development Environment with Claude Code & SQL Server",
-	"dockerComposeFile": "docker-compose.yml",
-	"service": "app",
-	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
-	// Configure tool-specific properties.
-	"customizations": {
-		// Configure properties specific to VS Code.
-		"vscode": {
-			// Set *default* container specific settings.json values on container create.
-			"settings": {
-				"mssql.connections": [
-					{
-						"server": "localhost,1433",
-						"database": "",
-						"authenticationType": "SqlLogin",
-						"user": "sa",
-						"password": "P@ssw0rd",
-						"emptyPasswordInput": false,
-						"savePassword": false,
-						"profileName": "mssql-container"
-					}
-				],
-				"editor.formatOnSave": true,
-				"editor.defaultFormatter": "esbenp.prettier-vscode",
-				 "editor.codeActionsOnSave": {
-          			"source.fixAll.eslint": "explicit"
-				},
-				"terminal.integrated.defaultProfile.linux": "zsh",
-				"terminal.integrated.profiles.linux": {
-					"bash": {
-						"path": "bash",
-						"icon": "terminal-bash"
-					},
-					"zsh": {
-						"path": "zsh"
-					}
-				}
-			},
-			// Add the IDs of extensions you want installed when the container is created.
-			"extensions": [
-			    "dbaeumer.vscode-eslint",
-	            "esbenp.prettier-vscode",
-			    "ms-mssql.mssql",
-				"eamodio.gitlens"
-			]
-		}
-	},
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [5000, 5001],
-	// "portsAttributes": {
-	//		"5001": {
-	//			"protocol": "https"
-	//		}
-	// }
-	// Mounts for Claude Code configuration
-	"mounts": [
-		"source=claude-code-bashhistory-${devcontainerId},target=/commandhistory,type=volume",
-		"source=claude-code-config-${devcontainerId},target=/home/vscode/.claude,type=volume"
-	],
-	// Container environment variables for Claude Code
-	"containerEnv": {
-		"NODE_OPTIONS": "--max-old-space-size=4096",
-		"CLAUDE_CONFIG_DIR": "/home/vscode/.claude"
-	},
-	// postCreateCommand.sh parameters: $1=SA password, $2=dacpac path, $3=sql script(s) path
-	"postCreateCommand": "bash .devcontainer/mssql/postCreateCommand.sh 'P@ssw0rd' '' './.devcontainer/mssql/' && sudo mkdir -p /commandhistory && sudo touch /commandhistory/.bash_history && sudo chown -R vscode /commandhistory && echo 'export PROMPT_COMMAND=\"history -a\" && export HISTFILE=/commandhistory/.bash_history' >> ~/.bashrc",
-	"features": {
-		"ghcr.io/devcontainers/features/common-utils:2": {},
-		"ghcr.io/devcontainers/features/github-cli:1": {},
-		"ghcr.io/devcontainers/features/node:1": {}
-	},
-	// Use vscode user (non-root)
-	"remoteUser": "vscode"
+  "name": "Development Environment with Claude Code & SQL Server",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  // Configure tool-specific properties.
+  "customizations": {
+    // Configure properties specific to VS Code.
+    "vscode": {
+      // Set *default* container specific settings.json values on container create.
+      "settings": {
+        "mssql.connections": [
+          {
+            "server": "localhost,1433",
+            "database": "",
+            "authenticationType": "SqlLogin",
+            "user": "sa",
+            "password": "P@ssw0rd",
+            "emptyPasswordInput": false,
+            "savePassword": false,
+            "profileName": "mssql-container"
+          }
+        ],
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.codeActionsOnSave": {
+          "source.fixAll.eslint": "explicit"
+        },
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "terminal.integrated.profiles.linux": {
+          "bash": {
+            "path": "bash",
+            "icon": "terminal-bash"
+          },
+          "zsh": {
+            "path": "zsh"
+          }
+        }
+      },
+      // Add the IDs of extensions you want installed when the container is created.
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "ms-mssql.mssql",
+        "eamodio.gitlens"
+      ]
+    }
+  },
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  // "forwardPorts": [5000, 5001],
+  // "portsAttributes": {
+  //		"5001": {
+  //			"protocol": "https"
+  //		}
+  // }
+  // Mounts for Claude Code configuration
+  "mounts": [
+    "source=claude-code-bashhistory-${devcontainerId},target=/commandhistory,type=volume",
+    "source=claude-code-config-${devcontainerId},target=/home/vscode/.claude,type=volume"
+  ],
+  // Container environment variables for Claude Code
+  "containerEnv": {
+    "NODE_OPTIONS": "--max-old-space-size=4096",
+    "CLAUDE_CONFIG_DIR": "/home/vscode/.claude"
+  },
+  // postCreateCommand.sh parameters: $1=SA password, $2=dacpac path, $3=sql script(s) path
+  "postCreateCommand": "bash .devcontainer/mssql/postCreateCommand.sh 'P@ssw0rd' '' './.devcontainer/mssql/' && sudo mkdir -p /commandhistory && sudo touch /commandhistory/.bash_history && sudo chown -R vscode /commandhistory && echo 'export PROMPT_COMMAND=\"history -a\" && export HISTFILE=/commandhistory/.bash_history' >> ~/.bashrc",
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/node:1": {},
+    "ghcr.io/anthropics/devcontainer-features/claude-code:1.0": {}
+  },
+  // Use vscode user (non-root)
+  "remoteUser": "vscode"
 }
