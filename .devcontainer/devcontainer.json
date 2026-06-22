@@ -70,7 +70,7 @@
   "features": {
     "ghcr.io/devcontainers/features/common-utils:2": {},
     "ghcr.io/devcontainers/features/github-cli:1": {},
-    "ghcr.io/devcontainers/features/node:1": {},
+    "ghcr.io/devcontainers/features/node:2": {},
     "ghcr.io/anthropics/devcontainer-features/claude-code:1.0": {}
   },
   // Use vscode user (non-root)
